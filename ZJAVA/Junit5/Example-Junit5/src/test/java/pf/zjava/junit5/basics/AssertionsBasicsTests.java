@@ -3,7 +3,7 @@ package pf.zjava.junit5.basics;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class AssertionsBasics {
+class AssertionsBasicsTests {
   @Test
   void simple() {
     Assertions.assertTrue(true);

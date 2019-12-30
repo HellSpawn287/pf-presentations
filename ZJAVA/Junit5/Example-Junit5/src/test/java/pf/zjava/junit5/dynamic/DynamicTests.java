@@ -47,9 +47,13 @@ public class DynamicTests {
 
   private Function<Tuple3<Integer, Integer, Integer>, DynamicTest> mapTestCaseToDynamicTest() {
     return testCase -> DynamicTest.dynamicTest(
-        "multiply should return " + testCase._1 + " for " + testCase._2 + " and " + testCase._3,
+        mapTestCaseToDynamicTestDisplayName(testCase),
         () -> {
           Assertions.assertEquals(testCase._1, multiplicator.multiply(testCase._2, testCase._3));
         });
+  }
+
+  private String mapTestCaseToDynamicTestDisplayName(Tuple3<Integer, Integer, Integer> testCase) {
+    return "multiply should return " + testCase._1 + " for " + testCase._2 + " and " + testCase._3;
   }
 }

@@ -4,10 +4,11 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
-public class Lifecycle {
+public class LifecycleNestedTests {
   @BeforeAll
   static void setupAll() {
     System.out.println("BeforeAll");
@@ -37,6 +38,29 @@ public class Lifecycle {
   void test2(TestInfo info) {
     System.out.println("test2");
   }
+  @Nested
+  public class NestedTest {
+
+    @BeforeEach
+    void beforeEach() {
+      System.out.println("BeforeEachNested");
+    }
+
+    @AfterEach
+    void afterEach() {
+      System.out.println("afterEachNested");
+    }
+
+    @Test
+    void test1(TestInfo info) {
+      System.out.println("test1Nested");
+    }
+
+    @Test
+    void test2(TestInfo info) {
+      System.out.println("test2Nested");
+    }
 
 
+  }
 }

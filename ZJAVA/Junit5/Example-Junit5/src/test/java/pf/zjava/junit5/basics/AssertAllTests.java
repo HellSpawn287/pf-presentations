@@ -3,7 +3,7 @@ package pf.zjava.junit5.basics;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class AssertAll {
+public class AssertAllTests {
   @Test
   void assertAll() {
     Assertions.assertAll(
