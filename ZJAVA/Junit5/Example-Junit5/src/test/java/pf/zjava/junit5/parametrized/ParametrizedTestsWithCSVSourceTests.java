@@ -4,8 +4,12 @@ import io.vavr.Tuple3;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.condition.JRE;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.converter.JavaTimeConversionPattern;
 import org.junit.jupiter.params.provider.CsvSource;
 import pf.zjava.junit5.Multiplicator;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ParametrizedTestsWithCSVSourceTests {
 
@@ -45,8 +49,16 @@ public class ParametrizedTestsWithCSVSourceTests {
   @CsvSource(value = {"JAVA_8, false", "JAVA_11, true"})
   void enumTest(JRE jre, boolean currentVersion){
     Assertions.assertEquals(currentVersion, jre.isCurrentVersion());
-
   }
+
+  @ParameterizedTest
+  @CsvSource(value = {"2020-01-01T12:00:00, 2020-01-01 "})
+  void csvDateTest(LocalDateTime ldt,
+                   @JavaTimeConversionPattern("yyyy-MM-dd") LocalDate dt){
+    System.out.println(ldt.toString());
+    System.out.println(dt.toString());
+  }
+
 
 
 }
