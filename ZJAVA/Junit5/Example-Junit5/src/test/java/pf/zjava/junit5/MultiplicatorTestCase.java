@@ -1,11 +1,11 @@
-package pf.zjava.junit5.parametrized;
+package pf.zjava.junit5;
 
-class TestCase {
-  Integer result;
-  Integer a;
-  Integer b;
+public class MultiplicatorTestCase {
+  public Integer result;
+  public Integer a;
+  public Integer b;
 
-  public TestCase(Integer result, Integer a, Integer b) {
+  public MultiplicatorTestCase(Integer result, Integer a, Integer b) {
     this.result = result;
     this.a = a;
     this.b = b;
@@ -20,11 +20,11 @@ class TestCase {
         '}';
   }
 
-  public static TestCase abcd(String s) {
+  public static MultiplicatorTestCase abcd(String s) {
     String[] splits = s.split("/");
     var result = Integer.parseInt(splits[0]);
     var a = Integer.parseInt(splits[1]);
     var b = Integer.parseInt(splits[2]);
-    return new TestCase(result, a, b);
+    return new MultiplicatorTestCase(result, a, b);
   }
 }

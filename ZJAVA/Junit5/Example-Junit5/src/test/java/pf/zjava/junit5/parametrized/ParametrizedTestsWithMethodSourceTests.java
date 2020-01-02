@@ -1,12 +1,12 @@
 package pf.zjava.junit5.parametrized;
 
-import io.vavr.Tuple3;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import pf.zjava.junit5.Multiplicator;
-import pf.zjava.junit5.TestCaseGenerator;
+import pf.zjava.junit5.MultiplicatorTestCase;
+import pf.zjava.junit5.MultiplicatorTestCaseGenerator;
 
 import java.util.stream.Stream;
 
@@ -15,25 +15,25 @@ public class ParametrizedTestsWithMethodSourceTests {
   private Multiplicator multiplicator = new Multiplicator();
   ;
 
-  static Stream<Tuple3<Integer, Integer, Integer>> testCaseSource() {
-    return TestCaseGenerator.generatedTestCase();
+  static Stream<MultiplicatorTestCase> testCaseSource() {
+    return MultiplicatorTestCaseGenerator.generatedTestCase();
   }
 
   static Stream<Arguments> testCaseArgumentSource() {
-    return TestCaseGenerator.generatedTestCase()
-        .map(testCase -> Arguments.of(testCase._1, testCase._2, testCase._3));
+    return MultiplicatorTestCaseGenerator.generatedTestCase()
+        .map(testCase -> Arguments.of(testCase.result, testCase.a, testCase.b));
   }
 
   @ParameterizedTest(name = "multiply TestCase {0}")
   @MethodSource("testCaseSource")
-  void currentClassMethodSourceTest(Tuple3<Integer, Integer, Integer> testCase) {
-    Assertions.assertEquals(testCase._1, multiplicator.multiply(testCase._2, testCase._3));
+  void currentClassMethodSourceTest(MultiplicatorTestCase testCase) {
+    Assertions.assertEquals(testCase.result, multiplicator.multiply(testCase.a, testCase.b));
   }
 
   @ParameterizedTest()
   @MethodSource("pf.zjava.junit5.TestCaseGenerator#generatedTestCase")
-  void externalMethodSourceTest(Tuple3<Integer, Integer, Integer> testCase) {
-    Assertions.assertEquals(testCase._1, multiplicator.multiply(testCase._2, testCase._3));
+  void externalMethodSourceTest(MultiplicatorTestCase testCase) {
+    Assertions.assertEquals(testCase.result, multiplicator.multiply(testCase.a, testCase.b));
   }
 
   @ParameterizedTest(name = "multiply should return {0} for {1} and {2}")
