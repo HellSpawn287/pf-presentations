@@ -5,44 +5,44 @@ import org.junit.jupiter.api.condition.JRE;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.converter.JavaTimeConversionPattern;
 import org.junit.jupiter.params.provider.CsvSource;
-import pf.zjava.junit5.Multiplicator;
-import pf.zjava.junit5.MultiplicatorTestCase;
+import pf.zjava.junit5.Multiplier;
+import pf.zjava.junit5.MultiplierTestCase;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ParametrizedTestsWithCSVSourceTests {
 
-  private Multiplicator multiplicator = new Multiplicator();
+  private Multiplier multiplier = new Multiplier();
 
   @ParameterizedTest(name = "multiply TestCase {0}")
   @CsvSource(value = {"4,2,2", "6,2,3", "8,4,2"})
-  void csvSourceTuple(MultiplicatorTestCase testCase) {
-    Assertions.assertEquals(testCase.result, multiplicator.multiply(testCase.a, testCase.b));
+  void csvSourceTuple(MultiplierTestCase testCase) {
+    Assertions.assertEquals(testCase.result, multiplier.multiply(testCase.a, testCase.b));
   }
 
   @ParameterizedTest(name = "multiply should return {0} for {1} and {2}")
   @CsvSource(value = {"4,2,2", "6,2,3", "8,4,2"})
   void namedCsvSourceSeparateParams(Integer result, Integer a, Integer b) {
-    Assertions.assertEquals(result, multiplicator.multiply(a, b));
+    Assertions.assertEquals(result, multiplier.multiply(a, b));
   }
 
   @ParameterizedTest
   @CsvSource(value = {"4,2,2", "6,2,3", "8,4,2"})
   void csvSourceSeparateParams(Integer result, Integer a, Integer b) {
-    Assertions.assertEquals(result, multiplicator.multiply(a, b));
+    Assertions.assertEquals(result, multiplier.multiply(a, b));
   }
 
   @ParameterizedTest
   @CsvSource(value = {"4,2,2,3,4,5", "6,2,3,2,3", "8,4,2,4,56"})
   void csvSourceLongerSeparateParams(Integer result, Integer a, Integer b) {
-    Assertions.assertEquals(result, multiplicator.multiply(a, b));
+    Assertions.assertEquals(result, multiplier.multiply(a, b));
   }
 
   @ParameterizedTest(name = "multiply TestCase {0}")
   @CsvSource(value = {"4/2/2", "6/2/3", "8/4/2"})
-  void csvTestCase(MultiplicatorTestCase testCase) {
-    Assertions.assertEquals(testCase.result, multiplicator.multiply(testCase.a, testCase.b));
+  void csvTestCase(MultiplierTestCase testCase) {
+    Assertions.assertEquals(testCase.result, multiplier.multiply(testCase.a, testCase.b));
   }
 
   @ParameterizedTest(name = "{0}.currentVersion() is {1}")
