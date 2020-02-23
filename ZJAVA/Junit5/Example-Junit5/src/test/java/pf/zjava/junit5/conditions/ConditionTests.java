@@ -46,13 +46,13 @@ public class ConditionTests {
   @DisabledOnJre(value = JRE.JAVA_11)
   @Test
   void disabledOnJava11(){
-    System.out.println("disabledOnJAVA_11");
+    System.out.println("disabledOnJava11");
   }
 
   @DisabledOnJre(value = JRE.JAVA_10)
   @Test
   void disabledOnJava10(){
-    System.out.println("disabledOnJAVA_11");
+    System.out.println("disabledOnJava10");
   }
 
   @EnabledOnJre(value = JRE.JAVA_11)
@@ -70,24 +70,24 @@ public class ConditionTests {
   @DisabledIfSystemProperty(named = "testSystemProperty",matches = "[a]+" )
   @Test
   void disabledIfSystemProperty(){
-    System.out.println("disabledOnJAVA_11");
+    System.out.println("disabledIfSystemProperty");
   }
 
   @EnabledIfSystemProperty(named = "testSystemProperty", matches = "[b]+" )
   @Test
   void enabledIfSystemProperty(){
-    System.out.println("enabledOnJAVA_11");
+    System.out.println("enabledIfSystemProperty");
   }
 
   @DisabledIfEnvironmentVariable(named = "testEnvironmentVariable", matches = "[1]+" )
   @Test
   void disabledIfEnvironmentVariable(){
-    System.out.println("disabledOnJAVA_11");
+    System.out.println("disabledIfEnvironmentVariable");
   }
 
   @EnabledIfEnvironmentVariable(named = "testEnvironmentVariable", matches = "[2]+" )
   @Test
   void enabledIfEnvironmentVariable(){
-    System.out.println("enabledOnJAVA_11");
+    System.out.println("enabledIfEnvironmentVariable");
   }
 }
