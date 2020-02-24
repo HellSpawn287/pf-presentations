@@ -3,6 +3,8 @@ package pf.zjava.junit5.parametrized;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.condition.JRE;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.aggregator.AggregateWith;
+import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
 import org.junit.jupiter.params.converter.JavaTimeConversionPattern;
 import org.junit.jupiter.params.provider.CsvSource;
 import pf.zjava.junit5.Multiplier;
@@ -15,10 +17,10 @@ public class ParametrizedTestsWithCSVSourceTests {
 
   private Multiplier multiplier = new Multiplier();
 
-  @ParameterizedTest(name = "multiply TestCase {0}")
+  @ParameterizedTest
   @CsvSource(value = {"4,2,2", "6,2,3", "8,4,2"})
-  void csvSourceTuple(MultiplierTestCase testCase) {
-    Assertions.assertEquals(testCase.result, multiplier.multiply(testCase.a, testCase.b));
+  void csvSourceSeparateParams(Integer result, Integer a, Integer b) {
+    Assertions.assertEquals(result, multiplier.multiply(a, b));
   }
 
   @ParameterizedTest(name = "multiply should return {0} for {1} and {2}")
@@ -29,20 +31,14 @@ public class ParametrizedTestsWithCSVSourceTests {
 
   @ParameterizedTest
   @CsvSource(value = {"4,2,2", "6,2,3", "8,4,2"})
-  void csvSourceSeparateParams(Integer result, Integer a, Integer b) {
-    Assertions.assertEquals(result, multiplier.multiply(a, b));
+  void csvSourceArgumentsAccessor(Integer result, ArgumentsAccessor arguments) {
+    Assertions.assertEquals(result, multiplier.multiply(arguments.getInteger(1), arguments.getInteger(2)));
   }
 
   @ParameterizedTest
   @CsvSource(value = {"4,2,2,3,4,5", "6,2,3,2,3", "8,4,2,4,56"})
   void csvSourceLongerSeparateParams(Integer result, Integer a, Integer b) {
     Assertions.assertEquals(result, multiplier.multiply(a, b));
-  }
-
-  @ParameterizedTest(name = "multiply TestCase {0}")
-  @CsvSource(value = {"4/2/2", "6/2/3", "8/4/2"})
-  void csvTestCase(MultiplierTestCase testCase) {
-    Assertions.assertEquals(testCase.result, multiplier.multiply(testCase.a, testCase.b));
   }
 
   @ParameterizedTest(name = "{0}.currentVersion() is {1}")
@@ -59,5 +55,16 @@ public class ParametrizedTestsWithCSVSourceTests {
     System.out.println(dt.toString());
   }
 
+  @ParameterizedTest(name = "multiply TestCase {0}")
+  @CsvSource(value = {"4/2/2", "6/2/3", "8/4/2"})
+  void csvTestCase(MultiplierTestCase testCase) {
+    Assertions.assertEquals(testCase.result, multiplier.multiply(testCase.a, testCase.b));
+  }
+
+  @ParameterizedTest(name = "multiply TestCase with aggregator should return {0} for {1} and {2}")
+  @CsvSource(value = {"4,2,2", "6,2,3", "8,4,2"})
+  void csvTestCaseAggregator(@AggregateWith(MultiplierTestCaseAggregator.class) MultiplierTestCase testCase) {
+    Assertions.assertEquals(testCase.result, multiplier.multiply(testCase.a, testCase.b));
+  }
 
 }
